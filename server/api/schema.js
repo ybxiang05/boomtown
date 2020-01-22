@@ -19,8 +19,8 @@ module.exports = gql`
     imageurl: String
     description: String
     itemowner: User!
-    tags: [tag]
-    created: Date!
+    tags: [Tag]
+    created: String!
     borrower: User
   }
 
@@ -35,7 +35,7 @@ module.exports = gql`
 
   type Tag {
     id: ID!
-    title: String!  
+    title: String!
   }
 
   type AuthPayload {
@@ -66,8 +66,9 @@ module.exports = gql`
   }
 
   type Mutation {
-    addItem(
-      item: NewItemInput!
-    ): Item
+    addItem(item: NewItemInput!): Item
+    signup: Boolean
+    login: Boolean
+    logout: Boolean
   }
 `;
