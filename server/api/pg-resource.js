@@ -9,8 +9,8 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: "", // @TODO: Authentication - Server
-        values: [fullname, email, password],
+        text: "INSERT INTO users VALUES(email = $1, fullname = $2, password = $3, bio = $4)", // @TODO: Authentication - Server
+        values: [email, fullname, password, bio],
       };
       try {
         const user = await postgres.query(newUserInsert);
@@ -61,7 +61,7 @@ module.exports = postgres => {
        */
 
       const findUserQuery = {
-        text: "", // @TODO: Basic queries
+        text: "SELECT id, email, fullname, bio FROM users WHERE id = $1", // @TODO: Basic queries
         values: [id],
       };
 
@@ -73,64 +73,73 @@ module.exports = postgres => {
        *  Ex: If the user is not found from the DB throw 'User is not found'
        *  If the password is incorrect throw 'User or Password incorrect'
        */
+      try{
+        const findUser = await postgres.query(findUserQuery);
+      } catch (error) {
+        throw `${error}, User is not found`
+      }
 
-      const user = await postgres.query(findUserQuery);
-      return user;
-      // -------------------------------
+      
     },
     async getItems(idToOmit) {
       const items = await postgres.query({
-        /**
-         *  @TODO:
-         *
-         *  idToOmit = ownerId
-         *
-         *  Get all Items. If the idToOmit parameter has a value,
-         *  the query should only return Items were the ownerid !== idToOmit
-         *
-         *  Hint: You'll need to use a conditional AND/WHERE clause
-         *  to your query text using string interpolation
-         */
-
-        text: ``,
+        
+        text: `SELECT * FROM items WHERE ownerId != $1`,
         values: idToOmit ? [idToOmit] : [],
       });
+      try { 
+        const getItems = await postgres.query(getItems);
       return items.rows;
+    } catch (error) {
+      throw error, "User is not found"
+    }
     },
     async getItemsForUser(id) {
       const items = await postgres.query({
-        /**
-         *  @TODO:
-         *  Get all Items for user using their id
-         */
-        text: ``,
+    
+        text: `SELECT * FROM items WHERE id = $1`,
         values: [id],
       });
+      try { 
+        const itemsForUser = await postgres.query(getItemsForUser);
       return items.rows;
+      } catch (error) {
+        throw error, `Items not found`
+      } 
     },
     async getBorrowedItemsForUser(id) {
       const items = await postgres.query({
-        /**
-         *  @TODO:
-         *  Get all Items borrowed by user using their id
-         */
-        text: ``,
+      
+        text: `SELECT borrowerid FROM items WHERE ownerid = $1`,
         values: [id],
       });
       return items.rows;
     },
     async getTags() {
-      const tags = await postgres.query(/* @TODO: Basic queries */);
-      return tags.rows;
+      const tags = await postgres.query("SELECT * FROM tags");
+      try {
+        const tags = await postgres.query(getTags);
+        return tags.rows;
+      } 
+      catch (error) {
+        throw "tag does not exist"
+      }
     },
+    
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: ``, // @TODO: Advanced query Hint: use INNER JOIN
+        text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id = itemid WHERE itemid = $1;
+        `, 
         values: [id],
       };
+      try { 
+        const tags = await postgres.query(tagsQuery);
+        return tags.rows;
+      } catch (error) {
+        throw error, "couldn't get tags for this item"
+      }
 
-      const tags = await postgres.query(tagsQuery);
-      return tags.rows;
+     
     },
     async saveNewItem({ item, user }) {
       /**
@@ -151,6 +160,8 @@ module.exports = postgres => {
        *  Read the method and the comments carefully before you begin.
        */
 
+       
+
       return new Promise((resolve, reject) => {
         /**
          * Begin transaction by opening a long-lived connection
@@ -167,6 +178,12 @@ module.exports = postgres => {
               // @TODO
               // -------------------------------
 
+              const newItemQuery = {
+                text: `INSERT INTO items (title, description, ownerid) VALUES(title = $1, description = $2, ownerid = $3)`,
+
+       values: [title, description, ownerid]
+              }
+
               // Insert new Item
               // @TODO
               // -------------------------------
@@ -178,6 +195,8 @@ module.exports = postgres => {
               // Insert tags
               // @TODO
               // -------------------------------
+
+              
 
               // Commit the entire transaction!
               client.query("COMMIT", err => {
