@@ -1,5 +1,6 @@
 function tagsQueryString(tags, itemid, result) {
   for (i = tags.length; i > 0; i--) {
+    //(i = 0; i < tags.length -1; i ++ )
     result += `($${i}, ${itemid}),`;
   }
   return result.slice(0, -1) + ";";
@@ -10,7 +11,7 @@ module.exports = postgres => {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
         text: "INSERT INTO users VALUES(email = $1, fullname = $2, password = $3, bio = $4)", // @TODO: Authentication - Server
-        values: [email, fullname, password, bio],
+        values: [email, fullname, password, bio]
       };
       try {
         const user = await postgres.query(newUserInsert);
@@ -29,7 +30,7 @@ module.exports = postgres => {
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
         text: "", // @TODO: Authentication - Server
-        values: [email],
+        values: [email]
       };
       try {
         const user = await postgres.query(findUserQuery);
@@ -62,7 +63,7 @@ module.exports = postgres => {
 
       const findUserQuery = {
         text: "SELECT id, email, fullname, bio FROM users WHERE id = $1", // @TODO: Basic queries
-        values: [id],
+        values: [id]
       };
 
       /**
@@ -73,73 +74,66 @@ module.exports = postgres => {
        *  Ex: If the user is not found from the DB throw 'User is not found'
        *  If the password is incorrect throw 'User or Password incorrect'
        */
-      try{
+      try {
         const findUser = await postgres.query(findUserQuery);
       } catch (error) {
-        throw `${error}, User is not found`
+        throw `${error}, User is not found`;
       }
-
-      
     },
     async getItems(idToOmit) {
-      const items = await postgres.query({
-        
-        text: `SELECT * FROM items WHERE ownerId != $1`,
-        values: idToOmit ? [idToOmit] : [],
-      });
-      try { 
-        const getItems = await postgres.query(getItems);
-      return items.rows;
-    } catch (error) {
-      throw error, "User is not found"
-    }
+      try {
+        const items = await postgres.query({
+          text: `SELECT * FROM items WHERE ownerId != $1`,
+          values: idToOmit ? [idToOmit] : []
+        });
+        console.log(items.rows);
+        return items.rows;
+      } catch (error) {
+        throw (error, "Item(s) not found");
+      }
     },
     async getItemsForUser(id) {
-      const items = await postgres.query({
-    
-        text: `SELECT * FROM items WHERE id = $1`,
-        values: [id],
-      });
-      try { 
-        const itemsForUser = await postgres.query(getItemsForUser);
-      return items.rows;
+      try {
+        const items = await postgres.query({
+          text: `SELECT * FROM items WHERE id = $1`,
+          values: [id]
+        });
+        return items.rows;
       } catch (error) {
-        throw error, `Items not found`
-      } 
+        throw (error, `Items not found`);
+      }
     },
     async getBorrowedItemsForUser(id) {
-      const items = await postgres.query({
-      
-        text: `SELECT borrowerid FROM items WHERE ownerid = $1`,
-        values: [id],
-      });
-      return items.rows;
+      try {
+        const items = await postgres.query({
+          text: `SELECT borrowerid FROM items WHERE ownerid = $1`,
+          values: [id]
+        });
+        return items.rows;
+      } catch (error) {
+        throw error;
+      }
     },
     async getTags() {
-      const tags = await postgres.query("SELECT * FROM tags");
       try {
-        const tags = await postgres.query(getTags);
-        return tags.rows;
-      } 
-      catch (error) {
-        throw "tag does not exist"
-      }
-    },
-    
-    async getTagsForItem(id) {
-      const tagsQuery = {
-        text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id = itemid WHERE itemid = $1;
-        `, 
-        values: [id],
-      };
-      try { 
-        const tags = await postgres.query(tagsQuery);
+        const tags = await postgres.query("SELECT * FROM tags");
         return tags.rows;
       } catch (error) {
-        throw error, "couldn't get tags for this item"
+        throw "tag does not exist";
       }
+    },
 
-     
+    async getTagsForItem(id) {
+      try {
+        const tagsQuery = {
+          text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id = itemid WHERE itemid = $1;
+          `,
+          values: [id]
+        };
+        return tags.rows;
+      } catch (error) {
+        throw error;
+      }
     },
     async saveNewItem({ item, user }) {
       /**
@@ -160,8 +154,6 @@ module.exports = postgres => {
        *  Read the method and the comments carefully before you begin.
        */
 
-       
-
       return new Promise((resolve, reject) => {
         /**
          * Begin transaction by opening a long-lived connection
@@ -179,10 +171,10 @@ module.exports = postgres => {
               // -------------------------------
 
               const newItemQuery = {
-                text: `INSERT INTO items (title, description, ownerid) VALUES(title = $1, description = $2, ownerid = $3)`,
+                text: `INSERT INTO items (title, description, ownerid) VALUES($1, $2, $3)`,
 
-       values: [title, description, ownerid]
-              }
+                values: [title, description, ownerid]
+              };
 
               // Insert new Item
               // @TODO
@@ -195,8 +187,6 @@ module.exports = postgres => {
               // Insert tags
               // @TODO
               // -------------------------------
-
-              
 
               // Commit the entire transaction!
               client.query("COMMIT", err => {
@@ -226,6 +216,6 @@ module.exports = postgres => {
           }
         });
       });
-    },
+    }
   };
 };
