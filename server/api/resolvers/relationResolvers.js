@@ -13,7 +13,11 @@ const relationResolvers = {
      *
      */
     // @TODO: Uncomment these lines after you define the User type with these fields
+<<<<<<< HEAD
     async items(parent, { id }, { pgResource }, info) {
+=======
+    async items(parent, args, { pgResource }, info) {
+>>>>>>> 0db28401e03aa62c82a9559692d1439996337cff
       //   // @TODO: Replace this mock return statement with the correct items from Postgres
       return await pgResource.getItemsForUser(parent.id);
       //   // -------------------------------
