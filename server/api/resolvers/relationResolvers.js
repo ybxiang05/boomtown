@@ -13,16 +13,16 @@ const relationResolvers = {
      *
      */
     // @TODO: Uncomment these lines after you define the User type with these fields
-    // items() {
-    //   // @TODO: Replace this mock return statement with the correct items from Postgres
-    //   return []
-    //   // -------------------------------
-    // },
-    // borrowed() {
-    //   // @TODO: Replace this mock return statement with the correct items from Postgres
-    //   return []
-    //   // -------------------------------
-    // }
+    async items(parent, args, { pgResource }, info) {
+      //   // @TODO: Replace this mock return statement with the correct items from Postgres
+      return await pgResource.getItemsForUser(parent.id);
+      //   // -------------------------------
+    },
+    async borrowed(parent, args, { pgResource }, info) {
+      //   // @TODO: Replace this mock return statement with the correct items from Postgres
+      return await pgResource.getBorrowedItemsForUser(parent.id);
+      //   // -------------------------------
+    }
     // -------------------------------
   },
 
