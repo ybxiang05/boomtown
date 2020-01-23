@@ -44,9 +44,9 @@ const relationResolvers = {
 
       //   // -------------------------------
     },
-    async tags() {
+    async tags(parent, { id }, { pgSource }, info) {
       //   // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
-      return [];
+      return await pgSource.getTagsForItem(id);
       //   // -------------------------------
     },
     async borrower() {
