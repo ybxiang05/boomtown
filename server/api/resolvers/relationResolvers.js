@@ -13,11 +13,7 @@ const relationResolvers = {
      *
      */
     // @TODO: Uncomment these lines after you define the User type with these fields
-<<<<<<< HEAD
     async items(parent, { id }, { pgResource }, info) {
-=======
-    async items(parent, args, { pgResource }, info) {
->>>>>>> 0db28401e03aa62c82a9559692d1439996337cff
       //   // @TODO: Replace this mock return statement with the correct items from Postgres
       return await pgResource.getItemsForUser(parent.id);
       //   // -------------------------------
@@ -42,23 +38,23 @@ const relationResolvers = {
      *
      */
     // @TODO: Uncomment these lines after you define the Item type with these fields
-    async itemowner(parent, { filter }, { pgSource }, info) {
+    async itemowner(parent, args, { pgResource }, info) {
       //   // @TODO: Replace this mock return statement with the correct user from Postgres
-      return await pgSource.getUserById(filter);
+      return await pgResource.getUserById(parent.ownerid);
 
       //   // -------------------------------
     },
-    async tags(parent, { id }, { pgSource }, info) {
+    async tags(parent, args, { pgResource }, info) {
       //   // @TODO: Replace this mock return statement with the correct tags for the queried Item from Postgres
-      return await pgSource.getTagsForItem(id);
+      return await pgResource.getTagsForItem(parent.id);
       //   // -------------------------------
     },
-    async borrower() {
+    async borrower(parent, args, { pgResource }, info) {
       //   /**
       //    * @TODO: Replace this mock return statement with the correct user from Postgres
       //    * or null in the case where the item has not been borrowed.
       //    */
-      return null;
+      return await pgResource.getUserById(parent.borrowerid);
       //   // -------------------------------
     }
     // -------------------------------

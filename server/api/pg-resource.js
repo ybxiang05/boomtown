@@ -71,19 +71,23 @@ module.exports = postgres => {
        */
       try {
         const findUserQuery = {
-          text: "SELECT id, email, fullname, bio FROM users WHERE id = $1", // @TODO: Basic queries
+          text: "SELECT * FROM users WHERE id = $1", // @TODO: Basic queries
           values: [id]
         };
+
+        const user = await postgres.query(findUserQuery);
+        return user.rows[0];
       } catch (error) {
         throw `${error}, User is not found`;
       }
     },
     async getItems(idToOmit) {
       try {
-        const items = await postgres.query({
-          text: `SELECT * FROM items WHERE ownerId != $1`,
+        const itemsQuery = {
+          text: `SELECT * FROM items WHERE ownerid != $1`,
           values: idToOmit ? [idToOmit] : []
-        });
+        };
+        const items = await postgres.query(itemsQuery);
         return items.rows;
       } catch (error) {
         throw (error, "Item(s) not found");
@@ -123,10 +127,12 @@ module.exports = postgres => {
     async getTagsForItem(id) {
       try {
         const tagsQuery = {
-          text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id = itemid WHERE itemid = $1;
+          text: `SELECT * FROM tags INNER JOIN itemtags ON tags.id = tagid WHERE itemid = $1;
           `,
           values: [id]
         };
+
+        const tags = await postgres.query(tagsQuery);
         return tags.rows;
       } catch (error) {
         throw error;
@@ -166,21 +172,22 @@ module.exports = postgres => {
               const newItemQuery = {
                 text: `INSERT INTO items (title, description, ownerid) VALUES($1, $2, $3) RETURNING *`,
 
-                values: [title, description, ownerid]
+                values: [title, description, user]
               };
 
-              const insertNewItem = await postgres.query(newItemQuery);
+              const newItem = await postgres.query(newItemQuery);
+              const itemid = newItem.rows[0].id;
 
               const tagRelationQuery = {
-                text: `INSERT INTO itemtags (itemid, tagid) VALUES (${tagsQueryString(
+                text: `INSERT INTO itemtags (tagid, itemid) VALUES ${tagsQueryString(
                   [...tags],
                   itemid,
-                  result
-                )})`,
-                values: [itemid, tagid]
+                  ""
+                )}`,
+                values: tags.map(tag => tag.id)
               };
 
-              const insertTags = await postgres.query(tagRelationQuery);
+              await postgres.query(tagRelationQuery);
 
               // Commit the entire transaction!
               client.query("COMMIT", err => {

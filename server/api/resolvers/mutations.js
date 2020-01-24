@@ -99,7 +99,7 @@ const mutationResolvers = app => ({
       // -------------------------------
       if (!valid) throw "Invalid Password";
 
-      const token = generateToken(user, app.get("JWT_SECRET"));
+      //const token = generateToken(user, app.get("JWT_SECRET"));
 
       setCookie({
         tokenName: app.get("JWT_COOKIE_NAME"),
@@ -133,12 +133,19 @@ const mutationResolvers = app => ({
      *  Again, you may look at the user resolver for an example of what
      *  destructuring should look like.
      */
-    const user = await jwt.decode(context.token, app.get("JWT_SECRET"));
-    const newItem = await context.pgResource.saveNewItem({
-      item: args.item,
-      user
-    });
-    return newItem;
+    try {
+      // const user = await jwt.decode(context.token, app.get("JWT_SECRET"));
+      const { pgResource } = context;
+      const { item } = args;
+      console.log(args.item);
+      const newItem = await pgResource.saveNewItem({
+        item,
+        user: 1
+      });
+      return newItem;
+    } catch (error) {
+      throw new ApolloError(error);
+    }
   }
 });
 

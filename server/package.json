@@ -8,13 +8,13 @@
     "jest:watch": "npm run jest -- --watch",
     "test": "npm run jest",
     "start": "NODE_ENV=production node main.js",
-    "start:dev": "NODE_ENV=development nodemon main.js " 
+    "start:dev": "NODE_ENV=development nodemon main.js "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.6.2",
+    "apollo-server": "^2.9.16",
     "apollo-server-express": "^2.6.2",
     "bcryptjs": "^2.4.3",
     "chalk": "^2.4.2",
