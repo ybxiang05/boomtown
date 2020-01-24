@@ -1,6 +1,5 @@
 function tagsQueryString(tags, itemid, result) {
   for (i = tags.length; i > 0; i--) {
-    //(i = 0; i < tags.length -1; i ++ )
     result += `($${i}, ${itemid}),`;
   }
   return result.slice(0, -1) + ";";
@@ -71,7 +70,7 @@ module.exports = postgres => {
        */
       try {
         const findUserQuery = {
-          text: "SELECT * FROM users WHERE id = $1", // @TODO: Basic queries
+          text: "SELECT * FROM users WHERE id = $1",
           values: [id]
         };
 
