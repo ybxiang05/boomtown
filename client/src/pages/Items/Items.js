@@ -1,15 +1,23 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles';
+import React from "react";
+import styles from "./styles";
+import Container from "@material-ui/core/Container";
+import ItemGrid from "../../components/ItemGrid";
+import { makeStyles } from "@material-ui/core/styles";
 
-const Items = ({ classes }) => {
+const useStyles = makeStyles({
+  itemsContainer: {
+    marginTop: "100px"
+  }
+});
+const Items = props => {
+  const classes = useStyles();
+  console.log(props);
+
   return (
-    <div>
-      <p>
-        This is the items page located at <code>/items</code>.
-      </p>
-    </div>
+    <Container maxWidth="lg" className={classes.itemsContainer}>
+      <ItemGrid items={props.items} />
+    </Container>
   );
 };
 
-export default withStyles(styles)(Items);
+export default Items;
