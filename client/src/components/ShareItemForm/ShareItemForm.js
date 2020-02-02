@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withStyles, CheckBox, TextField } from "@material-ui/core/";
 import styles from "./styles";
+import ItemCard from "../ItemCard";
+import ItemsContainer from "../../pages/Items";
 import { Form, Field } from "react-final-form";
 
 class ShareItemForm extends Component {
@@ -22,6 +24,9 @@ class ShareItemForm extends Component {
         render={({ handleSubmit }) => {
           return (
             <form onSubmit={handleSubmit} className={classes.formContainer}>
+              {/* <ItemCard /> */}
+              <h1>Share. Borrow. Prosper.</h1>
+              <button className={classes.imageButton}>Select an Image</button>
               <Field
                 name="item name"
                 type="textarea"
@@ -42,6 +47,16 @@ class ShareItemForm extends Component {
                   </React.Fragment>
                 )}
               />
+              {/* <Field
+                name="item tags"
+                //type="checkbox"
+                render={({ input, meta }) => (
+                  <React.Fragment>
+                    <CheckBox {...input} placeholder="Describe your item." />
+                    {meta.error && meta.touched && <span>{meta.error}</span>}
+                  </React.Fragment>
+                )}
+              /> */}
             </form>
           );
         }}
