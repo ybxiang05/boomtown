@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function ButtonAppBar() {
+const NavBar = ({ toggleLoggedIn, history }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -87,7 +87,13 @@ export default function ButtonAppBar() {
                     </MenuItem>
                   </NavLink>
                   <NavLink to="/home" className={classes.link}>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem
+                      onClick={() => {
+                        handleClose();
+                        toggleLoggedIn();
+                        history.push("/home");
+                      }}
+                    >
                       <PowerSettingsNewIcon />
                       Sign Out
                     </MenuItem>
@@ -100,7 +106,8 @@ export default function ButtonAppBar() {
       </AppBar>
     </div>
   );
-}
+};
+export default withRouter(NavBar);
 //
 // import React from "react";
 // import { Button, Menu, MenuItem } from "@material-ui/core";
