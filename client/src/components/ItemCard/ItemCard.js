@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import moment from "moment";
+import { NavLink } from "react-router-dom";
 import Gravatar from "react-gravatar";
 
 import {
@@ -22,10 +23,15 @@ const useStyles = makeStyles({
     minWidth: "390px"
   },
   gravatar: {
-    borderRadius: "30px"
+    borderRadius: "30px",
+    marginRight: "15px"
   },
   borrowButton: {
-    border: "1px solid #f9a825"
+    border: "1px solid black"
+  },
+  userInfo: {
+    display: "flex",
+    marginBottom: "2rem"
   }
 });
 
@@ -37,38 +43,45 @@ const ItemCard = props => {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          alt={props.title}
-          height="140"
-          image="http://place-puppy.com/200x200"
-          title="Contemplative Reptile"
-        />
+        <NavLink to="/profile/:id">
+          <CardMedia
+            component="img"
+            alt={props.title}
+            height="225"
+            image="http://place-puppy.com/200x200"
+            title="Contemplative Reptile"
+          />
+        </NavLink>
         <CardContent>
-          <div></div>
-          <Gravatar email={props.owner.email} className={classes.gravatar} />
-          <Typography>{props.owner.fullname}</Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {moment(props.created).fromNow()}
-          </Typography>
+          <Box className={classes.userInfo}>
+            <Gravatar email={props.owner.email} className={classes.gravatar} />
+            <div>
+              <Typography variant="body1">{props.owner.fullname}</Typography>
+              <p variant="body1" color="textSecondary" component="p">
+                {moment(props.created).fromNow()}
+              </p>
+            </div>
+          </Box>
 
           <Typography gutterBottom variant="h5" component="h2">
             {props.title}
           </Typography>
 
           {props.tags.map(tag => {
-            return <span>{tag.title} </span>;
+            return (
+              <Typography variant="body1" color="textSecondary" key={tag.id}>
+                {tag.title}{" "}
+              </Typography>
+            );
           })}
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body1" component="p">
             {props.description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Box className={classes.borrowButton}>
-          <Button size="small" color="primary">
-            Borrow
-          </Button>
+          <Button>Borrow</Button>
         </Box>
       </CardActions>
     </Card>

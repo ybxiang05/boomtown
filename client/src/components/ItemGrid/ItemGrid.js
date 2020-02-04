@@ -7,10 +7,12 @@ import styles from "./styles";
 const useStyles = makeStyles({
   cardGrid: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    padding: "100px 3%"
   },
   singleCard: {
-    flexBasis: "33%"
+    // flexBasis: "33%"
+    maxWidth: "33%"
   }
 });
 const ItemGrid = ({ items }) => {
@@ -18,13 +20,12 @@ const ItemGrid = ({ items }) => {
 
   return (
     <Grid item className={classes.cardGrid}>
-      <Grid container justify="left" spacing={2}>
+      <Grid container justify="flex-start" spacing={3}>
         {items.map(item => {
           //   console.log(item);
           return (
-            <Grid item xs={10} className={classes.singleCard}>
+            <Grid item xs={10} className={classes.singleCard} key={item.id}>
               <ItemCard
-                key={item.id}
                 image={item.imageurl}
                 title={item.title}
                 description={item.description}

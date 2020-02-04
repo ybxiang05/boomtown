@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   itemsContainer: {
-    marginTop: "100px"
+    backgroundColor: "black"
   }
 });
 const Items = props => {
@@ -14,7 +14,7 @@ const Items = props => {
   console.log(props);
 
   return (
-    <Container maxWidth="lg" className={classes.itemsContainer}>
+    <Container maxWidth="xl" className={classes.itemsContainer}>
       <ItemGrid items={props.items} />
     </Container>
   );
