@@ -7,7 +7,6 @@ import Gravatar from "react-gravatar";
 
 import {
   Card,
-  Avatar,
   makeStyles,
   CardActionArea,
   CardActions,
@@ -57,6 +56,9 @@ const ItemCard = props => {
             {props.title}
           </Typography>
 
+          {props.tags.map(tag => {
+            return <span>{tag.title} </span>;
+          })}
           <Typography variant="body2" color="textSecondary" component="p">
             {props.description}
           </Typography>
