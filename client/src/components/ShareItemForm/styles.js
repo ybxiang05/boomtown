@@ -1,17 +1,18 @@
 import { createStyles } from "@material-ui/core";
-//import { palette } from "../theme";
 
 const styles = createStyles({
+  input: {
+    display: "none"
+  },
   formContainer: {
-    marginTop: "200px",
     display: "flex",
     flexFlow: "column wrap",
-    width: "45%"
+    width: "50%",
+    padding: "3rem"
   },
-  imageButton: {
-    height: "50px",
-    borderRadius: "5px"
-    //backgroundColor: palette.primary
+  tagsContainer: {
+    display: "flex",
+    flexFlow: "row wrap"
   }
 });
 
