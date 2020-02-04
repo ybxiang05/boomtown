@@ -1,9 +1,8 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import styles from "./styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { Menu, MenuItem } from "@material-ui/core";
 import { NavLink, withRouter } from "react-router-dom";
@@ -13,39 +12,39 @@ import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  navLogo: {
-    height: "50px"
-  },
-  title: {
-    flexGrow: 1
-  },
-  link: {
-    color: "black",
-    alignItems: "center"
-  },
-  toolBar: {
-    display: "flex",
-    justifyContent: "space-between"
-  },
-  shareButton: {
-    textTransform: "uppercase"
-  },
-  circIcon: {
-    transform: "translateY(7px)"
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1
+//   },
+//   menuButton: {
+//     marginRight: theme.spacing(2)
+//   },
+//   navLogo: {
+//     height: "50px"
+//   },
+//   title: {
+//     flexGrow: 1
+//   },
+//   link: {
+//     color: "black",
+//     alignItems: "center"
+//   },
+//   toolBar: {
+//     display: "flex",
+//     justifyContent: "space-between"
+//   },
+//   shareButton: {
+//     textTransform: "uppercase"
+//   },
+//   circIcon: {
+//     transform: "translateY(7px)"
+//   }
+// }));
 
-const NavBar = ({ toggleLoggedIn, history }) => {
-  const classes = useStyles();
+const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
+  // const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  console.log(location, history);
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,18 +52,22 @@ const NavBar = ({ toggleLoggedIn, history }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar className={classes.toolBar}>
-          <img src={boomtownLogo} className={classes.navLogo} />
-          {/* <Typography variant="h6" className={classes.title}> */}
+          <NavLink to="/items">
+            <img src={boomtownLogo} className={classes.navLogo} />
+          </NavLink>
+
           <div>
-            <NavLink to="/share" className={classes.link}>
-              <AddCircleIcon className={classes.circIcon} />{" "}
-              <span className={classes.shareButton}>share something</span>
-            </NavLink>
-            {/* </Typography> */}
+            {location.pathname !== "/share" ? (
+              <NavLink to="/share" className={classes.link}>
+                <AddCircleIcon className={classes.circIcon} />{" "}
+                <span className={classes.shareButton}>share something</span>
+              </NavLink>
+            ) : null}
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -107,17 +110,4 @@ const NavBar = ({ toggleLoggedIn, history }) => {
     </div>
   );
 };
-export default withRouter(NavBar);
-//
-// import React from "react";
-// import { Button, Menu, MenuItem } from "@material-ui/core";
-
-// const NavBar = () => (
-//   <nav>
-//     <NavLink to="/items"></NavLink>
-//     <NavLink to="/share">Share Something</NavLink>
-//     <Button />
-//   </nav>
-// );
-
-// export default withRouter(NavBar);
+export default withRouter(withStyles(styles)(NavBar));
