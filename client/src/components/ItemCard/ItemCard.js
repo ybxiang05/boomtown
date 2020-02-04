@@ -18,30 +18,13 @@ import {
   Typography
 } from "@material-ui/core/";
 
-const useStyles = makeStyles({
-  card: {
-    minWidth: "390px"
-  },
-  gravatar: {
-    borderRadius: "30px",
-    marginRight: "15px"
-  },
-  borrowButton: {
-    border: "1px solid black"
-  },
-  userInfo: {
-    display: "flex",
-    marginBottom: "2rem"
-  }
-});
+const useStyles = makeStyles({});
 
 const ItemCard = props => {
-  const classes = useStyles();
-
   console.log("yes?", props);
   const { tags } = props;
   return (
-    <Card className={classes.card}>
+    <Card className={props.classes.card}>
       <CardActionArea>
         <NavLink to="/profile/:id">
           <CardMedia
@@ -53,8 +36,8 @@ const ItemCard = props => {
           />
         </NavLink>
         <CardContent>
-          <Box className={classes.userInfo}>
-            <Gravatar email={props.owner.email} className={classes.gravatar} />
+          <Box className={props.classes.userInfo}>
+            <Gravatar email={props.owner.email} className={props.classes.gravatar} />
             <div>
               <Typography variant="body1">{props.owner.fullname}</Typography>
               <p variant="body1" color="textSecondary" component="p">
@@ -80,21 +63,11 @@ const ItemCard = props => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Box className={classes.borrowButton}>
+        <Box className={props.classes.borrowButton}>
           <Button>Borrow</Button>
         </Box>
       </CardActions>
     </Card>
-    // <Card>
-    //   <h2>{props.title}</h2>
-    //   <p>{props.created}</p>
-    //   <p>{props.description}</p>
-    //   {/* <ul>
-    //     {tags.map(tag => {
-    //       return <li>{tag}</li>;
-    //     })}
-    //   </ul> */}
-    // </Card>
   );
 };
 
