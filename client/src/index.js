@@ -8,7 +8,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import registerServiceWorker from "./registerServiceWorker";
 import theme from "./theme";
-
+import ItemPreviewProvider from "./context/ItemPreviewProvider";
 /**
  * @TODO: Wrap your app with the Item Preview Provider
  *
@@ -38,9 +38,11 @@ const App = () => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <ApolloProvider client={client}>
-        <Router>
-          <AppRoutes />
-        </Router>
+        <ItemPreviewProvider>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </ItemPreviewProvider>
       </ApolloProvider>
     </MuiThemeProvider>
   );
