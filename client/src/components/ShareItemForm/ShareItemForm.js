@@ -1,16 +1,16 @@
 import React, { Component, useState } from "react";
 import { withStyles, CheckBox, TextField } from "@material-ui/core/";
 import styles from "./styles";
-import ItemCard from "../ItemCard";
-import ItemsContainer from "../../pages/Items";
 import Button from "@material-ui/core/Button";
+import HomeIcon from "@material-ui/icons/Home";
+import BuildIcon from "@material-ui/icons/Build";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import DevicesIcon from "@material-ui/icons/Devices";
+import { Form, Field, FormSpy } from "react-final-form";
+import { Mutation } from "react-apollo";
+import { ADD_ITEM_MUTATION } from "../../apollo/queries";
 
-import { Form, Field } from "react-final-form";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
-import Checkbox from "@material-ui/core/Checkbox";
-import ListItemText from "@material-ui/core/ListItemText";
-import Input from "@material-ui/core/Input";
+import { ItemPreviewContext } from "../../context/ItemPreviewProvider";
 
 function getStyles(name, personName, theme) {
   return {
@@ -27,13 +27,12 @@ class ShareItemForm extends React.Component {
       isChecked: true
     };
   }
-  onSubmit = values => {
-    console.log(values);
-  };
+
   validate = values => {
     const errors = {};
     console.log(values);
   };
+
   // setChecked = () => {
   //   this.setState({
   //     isChecked: !this.state.isClicked
@@ -43,78 +42,166 @@ class ShareItemForm extends React.Component {
     this.setChecked(event.target.checked);
   };
 
+  applyTags = (tags, allTags) => {
+    return tags.map(tag => {
+      const updatedTag = { title: tag };
+      allTags.filter(t => {
+        if (t.title === tag) {
+          updatedTag.id = t.id;
+        }
+      });
+      return updatedTag;
+    });
+  };
+
+  dispatchUpdate = (values, allTags, updatePreview) => {
+    updatePreview({
+      ...values,
+      tags: this.applyTags(values.tags || [], allTags)
+    });
+  };
+  addItem = () => {};
+
   render() {
-    let { classes } = this.props;
+    let { classes, tags } = this.props;
     return (
-      <Form
-        onSubmit={this.onSubmit}
-        validate={this.validate}
-        render={({ handleSubmit, pristine }) => {
+      <ItemPreviewContext.Consumer>
+        {({ updatePreview, resetPreview }) => {
           return (
-            <form onSubmit={handleSubmit} className={classes.formContainer}>
-              <h1>Share. Borrow. Prosper.</h1>
-              <input
-                accept="image/*"
-                className={classes.input}
-                id="contained-button-file"
-                multiple
-                type="file"
-              />
-              {/* <label htmlFor="contained-button-file"> */}
-              <Button variant="contained" color="primary" component="span">
-                upload an image{" "}
-              </Button>
-              {/* </label> */}
+            <Mutation mutation={ADD_ITEM_MUTATION}>
+              {addItem => (
+                <Form
+                  onSubmit={async values => {
+                    console.log(values);
+                    try {
+                      await addItem({
+                        variables: {
+                          item: { ...values, tags: this.applyTags(values.tags || [], tags) }
+                        }
+                      });
+                    } catch (error) {
+                      throw error;
+                    }
+                    resetPreview();
+                    // Form.reset();
+                  }}
+                  // validate={this.validate}
+                  render={({ handleSubmit, pristine }) => {
+                    return (
+                      <form onSubmit={handleSubmit} className={classes.formContainer}>
+                        <FormSpy
+                          subscription={{ values: true }}
+                          onChange={({ values }) => {
+                            if (values) {
+                              this.dispatchUpdate(values, tags, updatePreview);
+                            }
+                            return "";
+                          }}
+                        />
+                        <h1>Share. Borrow. Prosper.</h1>
 
-              <Field
-                name="item name"
-                type="text"
-                render={({ input, meta }) => (
-                  <React.Fragment>
-                    <TextField {...input} placeholder="Name your item." />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
-                  </React.Fragment>
-                )}
-              />
+                        <Field
+                          name="title"
+                          type="text"
+                          render={({ input, meta }) => (
+                            <React.Fragment>
+                              <TextField {...input} placeholder="Name your item." />
+                              {meta.error && meta.touched && <span>{meta.error}</span>}
+                            </React.Fragment>
+                          )}
+                        />
 
-              <Field
-                name="item description"
-                type="text"
-                multiline
-                rows="3"
-                render={({ input, meta }) => (
-                  <React.Fragment>
-                    <TextField {...input} placeholder="Describe your item." />
-                    {meta.error && meta.touched && <span>{meta.error}</span>}
-                  </React.Fragment>
-                )}
-              />
+                        <Field
+                          name="description"
+                          type="text"
+                          multiline
+                          rows="3"
+                          render={({ input, meta }) => (
+                            <React.Fragment>
+                              <TextField {...input} placeholder="Describe your item." />
+                              {meta.error && meta.touched && <span>{meta.error}</span>}
+                            </React.Fragment>
+                          )}
+                        />
 
-              <FormControl>
-                <h2>Add Tags:</h2>
-                <div className={classes.tagsContainer}>
-                  {this.props.tags.map(tag => (
-                    <MenuItem key={tag.id} value={tag}>
-                      <Checkbox onChange={console.log("poop")} />
-                      <ListItemText primary={tag.title} />
-                    </MenuItem>
-                  ))}
-                </div>
-              </FormControl>
-              <Button
-                className={classes.shareButton}
-                variant="contained"
-                color="primary"
-                component="span"
-                type="submit"
-                disabled={pristine}
-              >
-                Share
-              </Button>
-            </form>
+                        <label className={classes.tagIcons}>
+                          <Field name="tags" component="input" type="checkbox" value="Tools" />
+                          Tools
+                          <HomeIcon />
+                        </label>
+                        <label className={classes.tagIcons}>
+                          <Field
+                            name="tags"
+                            component="input"
+                            type="checkbox"
+                            value="Electronics"
+                          />
+                          Electronics <DevicesIcon />
+                        </label>
+                        <label className={classes.tagIcons}>
+                          <Field
+                            name="tags"
+                            component="input"
+                            type="checkbox"
+                            value="Physical Media"
+                          />
+                          Physical Media <HomeIcon />
+                        </label>
+                        <label className={classes.tagIcons}>
+                          <Field
+                            name="tags"
+                            component="input"
+                            type="checkbox"
+                            value="Sporting Goods"
+                          />
+                          Sporting Goods <HomeIcon />
+                        </label>
+                        <label className={classes.tagIcons}>
+                          <Field
+                            name="tags"
+                            component="input"
+                            type="checkbox"
+                            value="Musical Instruments"
+                          />
+                          Musical Instruments <MusicNoteIcon />
+                        </label>
+                        <label className={classes.tagIcons}>
+                          <Field
+                            name="tags"
+                            component="input"
+                            type="checkbox"
+                            value="Recreational Equipment"
+                          />
+                          Recreational Equipment <HomeIcon />
+                        </label>
+                        <label className={classes.tagIcons}>
+                          <Field
+                            name="tags"
+                            component="input"
+                            type="checkbox"
+                            value="Household Item"
+                          />
+                          Household Item
+                          <BuildIcon />
+                        </label>
+                        <Button
+                          className={classes.shareButton}
+                          variant="contained"
+                          color="primary"
+                          type="submit"
+                          disabled={pristine}
+                        >
+                          Share
+                        </Button>
+                      </form>
+                    );
+                  }}
+                />
+              )}
+            </Mutation>
           );
         }}
-      ></Form>
+      </ItemPreviewContext.Consumer>
     );
   }
 }
