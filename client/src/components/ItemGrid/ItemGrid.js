@@ -13,15 +13,7 @@ const ItemGrid = ({ items, classes }) => {
           //   console.log(item);
           return (
             <Grid item xs={10} className={classes.singleCard} key={item.id}>
-              <ItemCard
-                image={item.imageurl}
-                title={item.title}
-                description={item.description}
-                created={item.created}
-                tags={item.tags}
-                classes={classes}
-                owner={item.itemowner}
-              />
+              <ItemCard item={item} />
             </Grid>
           );
         })}

@@ -18,52 +18,54 @@ import {
   Typography
 } from "@material-ui/core/";
 
-const useStyles = makeStyles({});
-
-const ItemCard = props => {
-  console.log("yes?", props);
-  const { tags } = props;
+const ItemCard = ({ item, classes }) => {
+  // console.log("yes?", item);
+  const { tags } = item;
   return (
-    <Card className={props.classes.card}>
+    <Card className={classes.card}>
       <CardActionArea>
         <NavLink to="/profile/:id">
           <CardMedia
             component="img"
-            alt={props.title}
+            alt={item.title}
             height="225"
-            image="http://place-puppy.com/200x200"
-            title="Contemplative Reptile"
+            image=" http://place-puppy.com/200x200"
           />
         </NavLink>
         <CardContent>
-          <Box className={props.classes.userInfo}>
-            <Gravatar email={props.owner.email} className={props.classes.gravatar} />
+          <Box className={classes.userInfo}>
+            <Gravatar
+              email={item.owner && item.owner.email}
+              //if itemowner exists, then check email??
+              className={classes.gravatar}
+            />
             <div>
-              <Typography variant="body1">{props.owner.fullname}</Typography>
+              <Typography variant="body1">{item.owner && item.owner.fullname}</Typography>
               <p variant="body1" color="textSecondary" component="p">
-                {moment(props.created).fromNow()}
+                {moment(item.created).fromNow()}
               </p>
             </div>
           </Box>
 
           <Typography gutterBottom variant="h5" component="h2">
-            {props.title}
+            {item.title}
           </Typography>
 
-          {props.tags.map(tag => {
-            return (
-              <Typography variant="body1" color="textSecondary" key={tag.id}>
-                {tag.title}{" "}
-              </Typography>
-            );
-          })}
+          {tags &&
+            item.tags.map(tag => {
+              return (
+                <Typography variant="body1" color="textSecondary" key={tag.id}>
+                  {tag.title}{" "}
+                </Typography>
+              );
+            })}
           <Typography variant="body1" component="p">
-            {props.description}
+            {item.description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Box className={props.classes.borrowButton}>
+        <Box className={classes.borrowButton}>
           <Button>Borrow</Button>
         </Box>
       </CardActions>
