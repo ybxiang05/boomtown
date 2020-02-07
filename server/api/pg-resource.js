@@ -9,11 +9,12 @@ module.exports = postgres => {
   return {
     async createUser({ fullname, email, password }) {
       const newUserInsert = {
-        text: "INSERT INTO users VALUES(email = $1, fullname = $2, password = $3, bio = $4)", // @TODO: Authentication - Server
-        values: [email, fullname, password, bio]
+        text: "INSERT INTO users (email, fullname, password) VALUES($1, $2, $3) RETURNING *;",
+        values: [email, fullname, password]
       };
       try {
         const user = await postgres.query(newUserInsert);
+        //rows is a property of the object that contains the result from database; rows[0] as INSERT of newest user
         return user.rows[0];
       } catch (e) {
         switch (true) {
@@ -28,7 +29,7 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: "", // @TODO: Authentication - Server
+        text: "SELECT * FROM users WHERE email = $1",
         values: [email]
       };
       try {
@@ -106,7 +107,7 @@ module.exports = postgres => {
     async getBorrowedItemsForUser(id) {
       try {
         const items = await postgres.query({
-          text: `SELECT borrowerid FROM items WHERE ownerid = $1`,
+          text: `SELECT * FROM items WHERE borrowerid = $1`,
           values: [id]
         });
         return items.rows;
