@@ -40,6 +40,8 @@ module.exports = app => {
    *  For example: app.set('PG_HOST', process.env.PG_HOST || 'localhost')
    */
   app.set("PORT", PORT);
+  app.set("JWT_SECRET", process.env.PG_HOST || "NoTimeToDie");
+  app.set("JWT_COOKIE_NAME", "bt-token");
   app.set("PG_HOST", process.env.PG_HOST || "localhost");
   app.set("PG_USER", process.env.PG_USER || "boomtown");
   app.set("PG_PASSWORD", process.env.PG_PASSWORD || "boomtown");
