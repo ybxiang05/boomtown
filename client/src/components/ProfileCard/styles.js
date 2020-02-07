@@ -1,8 +1,8 @@
-import { makeStyles } from "@material-ui/core";
+import { createStyles } from "@material-ui/core";
 
 const styles = theme => ({
   profileCard: {
-    marginTop: "100px"
+    paddingTop: "100px"
   }
 });
 
