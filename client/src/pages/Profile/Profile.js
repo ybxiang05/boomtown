@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import styles from "./styles";
 import ItemCard from "../../components/ItemCard";
 import ProfileCard from "../../components/ProfileCard";
@@ -22,15 +22,16 @@ const Profile = ({ data, classes }) => {
       // return (
       <Grid className={classes.container}>
         <ProfileCard user={user} classes={classes} />
-        //map through viewer items here
+        <Typography variant="h1" color="primary" className={classes.sharedTitle}>
+          Shared Items
+        </Typography>
         {user.items.map(item => {
           return (
-            <Grid item xs={10} key={item.id}>
-              <ItemCard item={item} />
+            <Grid item key={item.id} className={classes.cardGrid}>
+              <ItemCard item={item} className={classes.itemCard} />
             </Grid>
           );
         })}
-        <ItemCard data={data} />
       </Grid>
       // );
       // }}

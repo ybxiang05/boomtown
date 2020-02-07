@@ -2,12 +2,21 @@ import { createStyles } from "@material-ui/styles";
 
 const styles = theme => ({
   container: {
-    backgroundColor: "black",
-    height: "100%"
+    backgroundColor: "black"
+    // height: "100%"
+  },
+  cardGrid: {
+    display: "flex",
+    flexFlow: "row wrap",
+    padding: "3%"
+  },
+  sharedTitle: {
+    fontSize: "2rem",
+    fontWeight: "4",
+    paddingTop: "2rem"
   },
   itemCard: {
-    display: "flex",
-    flexFlow: "row wrap"
+    width: "33%"
   }
 });
 
