@@ -12,39 +12,9 @@ import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     flexGrow: 1
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(2)
-//   },
-//   navLogo: {
-//     height: "50px"
-//   },
-//   title: {
-//     flexGrow: 1
-//   },
-//   link: {
-//     color: "black",
-//     alignItems: "center"
-//   },
-//   toolBar: {
-//     display: "flex",
-//     justifyContent: "space-between"
-//   },
-//   shareButton: {
-//     textTransform: "uppercase"
-//   },
-//   circIcon: {
-//     transform: "translateY(7px)"
-//   }
-// }));
-
 const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
-  // const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  console.log(location, history);
+  // console.log(location, history);
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -93,7 +63,7 @@ const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
                     <MenuItem
                       onClick={() => {
                         handleClose();
-                        toggleLoggedIn();
+                        // toggleLoggedIn();
                         history.push("/home");
                       }}
                     >

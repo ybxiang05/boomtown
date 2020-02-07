@@ -1,25 +1,20 @@
 import React, { Component, useState } from "react";
-import { withStyles, CheckBox, TextField } from "@material-ui/core/";
+import { withStyles, CheckBox, TextField, Box } from "@material-ui/core/";
 import styles from "./styles";
 import Button from "@material-ui/core/Button";
-import HomeIcon from "@material-ui/icons/Home";
-import BuildIcon from "@material-ui/icons/Build";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import DevicesIcon from "@material-ui/icons/Devices";
+// import SportsIcon from "@material-ui/icons/Sports";
+import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { Form, Field, FormSpy } from "react-final-form";
 import { Mutation } from "react-apollo";
 import { ADD_ITEM_MUTATION } from "../../apollo/queries";
 
 import { ItemPreviewContext } from "../../context/ItemPreviewProvider";
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
-  };
-}
 class ShareItemForm extends React.Component {
   constructor(props) {
     super(props);
@@ -33,11 +28,6 @@ class ShareItemForm extends React.Component {
     console.log(values);
   };
 
-  // setChecked = () => {
-  //   this.setState({
-  //     isChecked: !this.state.isClicked
-  //   });
-  // };
   handleChange = event => {
     this.setChecked(event.target.checked);
   };
@@ -60,13 +50,12 @@ class ShareItemForm extends React.Component {
       tags: this.applyTags(values.tags || [], allTags)
     });
   };
-  addItem = () => {};
 
   render() {
     let { classes, tags } = this.props;
     return (
       <ItemPreviewContext.Consumer>
-        {({ updatePreview, resetPreview }) => {
+        {({ updatePreview, resetPreview, form }) => {
           return (
             <Mutation mutation={ADD_ITEM_MUTATION}>
               {addItem => (
@@ -79,11 +68,11 @@ class ShareItemForm extends React.Component {
                           item: { ...values, tags: this.applyTags(values.tags || [], tags) }
                         }
                       });
+                      // on submit and successful mutation, redirect to profile
                     } catch (error) {
                       throw error;
                     }
                     resetPreview();
-                    // Form.reset();
                   }}
                   // validate={this.validate}
                   render={({ handleSubmit, pristine }) => {
@@ -123,67 +112,68 @@ class ShareItemForm extends React.Component {
                             </React.Fragment>
                           )}
                         />
-
-                        <label className={classes.tagIcons}>
-                          <Field name="tags" component="input" type="checkbox" value="Tools" />
-                          Tools
-                          <HomeIcon />
-                        </label>
-                        <label className={classes.tagIcons}>
-                          <Field
-                            name="tags"
-                            component="input"
-                            type="checkbox"
-                            value="Electronics"
-                          />
-                          Electronics <DevicesIcon />
-                        </label>
-                        <label className={classes.tagIcons}>
-                          <Field
-                            name="tags"
-                            component="input"
-                            type="checkbox"
-                            value="Physical Media"
-                          />
-                          Physical Media <HomeIcon />
-                        </label>
-                        <label className={classes.tagIcons}>
-                          <Field
-                            name="tags"
-                            component="input"
-                            type="checkbox"
-                            value="Sporting Goods"
-                          />
-                          Sporting Goods <HomeIcon />
-                        </label>
-                        <label className={classes.tagIcons}>
-                          <Field
-                            name="tags"
-                            component="input"
-                            type="checkbox"
-                            value="Musical Instruments"
-                          />
-                          Musical Instruments <MusicNoteIcon />
-                        </label>
-                        <label className={classes.tagIcons}>
-                          <Field
-                            name="tags"
-                            component="input"
-                            type="checkbox"
-                            value="Recreational Equipment"
-                          />
-                          Recreational Equipment <HomeIcon />
-                        </label>
-                        <label className={classes.tagIcons}>
-                          <Field
-                            name="tags"
-                            component="input"
-                            type="checkbox"
-                            value="Household Item"
-                          />
-                          Household Item
-                          <BuildIcon />
-                        </label>
+                        <Box className={classes.tagsContainer}>
+                          <label className={classes.tagIcons}>
+                            <Field name="tags" component="input" type="checkbox" value="Tools" />
+                            Tools
+                            <BuildOutlinedIcon className={classes.icons} />
+                          </label>
+                          <label className={classes.tagIcons}>
+                            <Field
+                              name="tags"
+                              component="input"
+                              type="checkbox"
+                              value="Electronics"
+                            />
+                            Electronics <DevicesIcon className={classes.icons} />
+                          </label>
+                          <label className={classes.tagIcons}>
+                            <Field
+                              name="tags"
+                              component="input"
+                              type="checkbox"
+                              value="Physical Media"
+                            />
+                            Physical Media <BookOutlinedIcon className={classes.icons} />
+                          </label>
+                          <label className={classes.tagIcons}>
+                            <Field
+                              name="tags"
+                              component="input"
+                              type="checkbox"
+                              value="Sporting Goods"
+                            />
+                            Sporting Goods <HomeOutlinedIcon className={classes.icons} />
+                          </label>
+                          <label className={classes.tagIcons}>
+                            <Field
+                              name="tags"
+                              component="input"
+                              type="checkbox"
+                              value="Musical Instruments"
+                            />
+                            Musical Instruments <MusicNoteIcon className={classes.icons} />
+                          </label>
+                          <label className={classes.tagIcons}>
+                            <Field
+                              name="tags"
+                              component="input"
+                              type="checkbox"
+                              value="Recreational Equipment"
+                            />
+                            Recreational Equipment <InsertEmoticonIcon className={classes.icons} />
+                          </label>
+                          <label className={classes.tagIcons}>
+                            <Field
+                              name="tags"
+                              component="input"
+                              type="checkbox"
+                              value="Household Item"
+                            />
+                            Household Item
+                            <HomeOutlinedIcon className={classes.icons} />
+                          </label>
+                        </Box>
                         <Button
                           className={classes.shareButton}
                           variant="contained"
