@@ -26,9 +26,15 @@ class AccountForm extends Component {
     const { classes, loginMutation, signupMutation } = this.props;
 
     return (
-      <Mutation mutation={LOGIN_MUTATION} refetchQueries={[{ query: VIEWER_QUERY }]}>
+      <Mutation
+        mutation={LOGIN_MUTATION}
+        // refetchQueries={[{ query: VIEWER_QUERY }]}
+      >
         {login => (
-          <Mutation mutation={SIGNUP_MUTATION} refetchQueries={[{ query: VIEWER_QUERY }]}>
+          <Mutation
+            mutation={SIGNUP_MUTATION}
+            // refetchQueries={[{ query: VIEWER_QUERY }]}
+          >
             {signup => (
               <Form
                 onSubmit={values => {
