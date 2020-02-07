@@ -20,14 +20,14 @@ import {
 
 const ItemCard = ({ item, classes }) => {
   // console.log("yes?", item);
-  const { tags } = item;
+  // const { tags } = item;
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <NavLink to="/profile/:id">
+        <NavLink to={`/profile/${item && item.itemowner.id}`}>
           <CardMedia
             component="img"
-            alt={item.title}
+            alt={item && item.title}
             height="225"
             image=" http://place-puppy.com/200x200"
           />
@@ -35,23 +35,25 @@ const ItemCard = ({ item, classes }) => {
         <CardContent>
           <Box className={classes.userInfo}>
             <Gravatar
-              email={item.owner && item.owner.email}
-              //if itemowner exists, then check email??
+              email={item && item.itemowner && item.itemowner.email}
               className={classes.gravatar}
             />
             <div>
-              <Typography variant="body1">{item.owner && item.owner.fullname}</Typography>
+              <Typography variant="body1">
+                {item && item.itemowner && item.itemowner.fullname}
+              </Typography>
               <p variant="body1" color="textSecondary" component="p">
-                {moment(item.created).fromNow()}
+                {moment(item && item.created).fromNow()}
               </p>
             </div>
           </Box>
 
           <Typography gutterBottom variant="h5" component="h2">
-            {item.title}
+            {item && item.title}
           </Typography>
 
-          {tags &&
+          {item &&
+            item.tags &&
             item.tags.map(tag => {
               return (
                 <Typography variant="body1" color="textSecondary" key={tag.id}>
@@ -60,7 +62,7 @@ const ItemCard = ({ item, classes }) => {
               );
             })}
           <Typography variant="body1" component="p">
-            {item.description}
+            {item && item.description}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -10,14 +10,14 @@ const ItemGrid = ({ items, classes }) => {
     <Grid item className={classes.cardGrid}>
       <Grid container justify="flex-start" spacing={3}>
         {items.items.map(item => {
-          //   console.log(item);
+          console.log(item);
           return (
             <Grid item xs={10} className={classes.singleCard} key={item.id}>
               <ItemCard item={item} />
             </Grid>
           );
         })}
-        {console.log("hello", items)}
+        {/* {console.log("hello", items)} */}
       </Grid>
     </Grid>
   );
