@@ -3,11 +3,12 @@ import { createStyles } from "@material-ui/core";
 const styles = theme => ({
   cardGrid: {
     display: "flex",
-    flexWrap: "wrap",
+    flexFlow: "row wrap",
     padding: "100px 3%"
   },
   singleCard: {
-    maxWidth: "33%"
+    width: "400px",
+    flexBasis: "33%"
   }
 });
 

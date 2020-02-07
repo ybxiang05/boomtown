@@ -2,8 +2,8 @@ import { createStyles } from "@material-ui/core";
 
 const styles = theme =>
   createStyles({
-    card: {
-      width: "50%",
+    cardPreview: {
+      minWidth: "500px",
       padding: "3rem"
     }
   });

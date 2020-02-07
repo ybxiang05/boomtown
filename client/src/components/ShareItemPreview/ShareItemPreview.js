@@ -7,7 +7,7 @@ import styles from "./styles";
 const ShareItemPreview = ({ classes }) => {
   return (
     <ItemPreviewContext.Consumer>
-      {({ state }) => <ItemCard item={state} className={classes.card} />}
+      {({ state }) => <ItemCard item={state} className={classes.cardPreview} />}
     </ItemPreviewContext.Consumer>
   );
 };
