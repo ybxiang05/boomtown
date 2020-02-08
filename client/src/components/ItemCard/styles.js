@@ -3,14 +3,16 @@ import { createStyles } from "@material-ui/core";
 const styles = theme =>
   createStyles({
     card: {
-      minWidth: "390px"
+      maxWidth: "400px",
+      height: "500px"
     },
     gravatar: {
       borderRadius: "30px",
       marginRight: "15px"
     },
     borrowButton: {
-      border: "1px solid black"
+      border: "1px solid black",
+      alignSelf: ""
     },
     userInfo: {
       display: "flex",

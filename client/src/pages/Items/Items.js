@@ -3,14 +3,13 @@ import styles from "./styles";
 import Container from "@material-ui/core/Container";
 import ItemGrid from "../../components/ItemGrid";
 import { withStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 
 const Items = ({ items, classes }) => {
-  // console.log(props);
-
   return (
-    <Container maxWidth="xl" className={classes.itemsContainer}>
-      <ItemGrid items={{ items, classes }} />
-    </Container>
+    <Box className={classes.itemsContainer}>
+      <ItemGrid items={items} />
+    </Box>
   );
 };
 
