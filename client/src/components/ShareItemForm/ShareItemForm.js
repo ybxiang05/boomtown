@@ -11,7 +11,9 @@ import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { Form, Field, FormSpy } from "react-final-form";
 import { Mutation } from "react-apollo";
+import { withRouter } from "react-router-dom";
 import { ADD_ITEM_MUTATION } from "../../apollo/queries";
+// import { Alert, AlertTitle } from "@material-ui/lab";
 
 import { ItemPreviewContext } from "../../context/ItemPreviewProvider";
 
@@ -19,13 +21,22 @@ class ShareItemForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isChecked: true
+      // isChecked: true
     };
   }
 
   validate = values => {
     const errors = {};
-    console.log(values);
+    if (!values.title) {
+      errors.title = "required";
+    }
+    if (!values.description) {
+      errors.description = "required";
+    }
+    if (!values.tags) {
+      errors.tags = "required";
+    }
+    return errors;
   };
 
   handleChange = event => {
@@ -60,6 +71,7 @@ class ShareItemForm extends React.Component {
             <Mutation mutation={ADD_ITEM_MUTATION}>
               {addItem => (
                 <Form
+                  validate={this.validate}
                   onSubmit={async values => {
                     console.log(values);
                     try {
@@ -68,14 +80,16 @@ class ShareItemForm extends React.Component {
                           item: { ...values, tags: this.applyTags(values.tags || [], tags) }
                         }
                       });
-                      // on submit and successful mutation, redirect to profile
                     } catch (error) {
                       throw error;
                     }
                     resetPreview();
+                    alert(
+                      "Your item has been added. Click 'OK' to be directed to your profile page."
+                    );
+                    this.props.history.push("/profile");
                   }}
-                  // validate={this.validate}
-                  render={({ handleSubmit, pristine }) => {
+                  render={({ handleSubmit, pristine, submitting, invalid }) => {
                     return (
                       <form onSubmit={handleSubmit} className={classes.formContainer}>
                         <FormSpy
@@ -179,7 +193,7 @@ class ShareItemForm extends React.Component {
                           variant="contained"
                           color="primary"
                           type="submit"
-                          disabled={pristine}
+                          disabled={pristine || invalid || submitting}
                         >
                           Share
                         </Button>
@@ -195,4 +209,4 @@ class ShareItemForm extends React.Component {
     );
   }
 }
-export default withStyles(styles)(ShareItemForm);
+export default withRouter(withStyles(styles)(ShareItemForm));
