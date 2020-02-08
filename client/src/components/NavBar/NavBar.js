@@ -5,7 +5,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import { Menu, MenuItem } from "@material-ui/core";
-import { NavLink, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import boomtownLogo from "../../images/boomtown.svg";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
@@ -31,16 +31,16 @@ const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
         <div className={classes.root}>
           <AppBar position="fixed">
             <Toolbar className={classes.toolBar}>
-              <NavLink to="/items">
+              <Link to="/items">
                 <img src={boomtownLogo} className={classes.navLogo} />
-              </NavLink>
+              </Link>
 
               <div>
                 {location.pathname !== "/share" ? (
-                  <NavLink to="/share" className={classes.link}>
+                  <Link to="/share" className={classes.link}>
                     <AddCircleIcon className={classes.circIcon} />{" "}
                     <span className={classes.shareButton}>share something</span>
-                  </NavLink>
+                  </Link>
                 ) : null}
                 <IconButton
                   edge="start"
@@ -57,13 +57,13 @@ const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
                       open={Boolean(anchorEl)}
                       onClose={handleClose}
                     >
-                      <NavLink to="/profile" className={classes.link}>
+                      <Link to="/profile" className={classes.link}>
                         <MenuItem onClick={handleClose}>
                           <FingerprintIcon />
                           Your Profile
                         </MenuItem>
-                      </NavLink>
-                      <NavLink to="/home" className={classes.link}>
+                      </Link>
+                      <Link to="/home" className={classes.link}>
                         <MenuItem
                           onClick={() => {
                             handleClose();
@@ -76,7 +76,7 @@ const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
                           <PowerSettingsNewIcon />
                           Sign Out
                         </MenuItem>
-                      </NavLink>
+                      </Link>
                     </Menu>
                   </div>
                 </IconButton>
