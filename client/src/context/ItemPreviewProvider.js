@@ -8,7 +8,7 @@ const initialState = {
   tags: [],
   itemowner: {},
   created: new Date(),
-  imageurl: "http://via.placeholder.com/350x250?text=Please select an image"
+  imageurl: "http://via.placeholder.com/350x250?text=Please, for the love of god!"
 };
 
 const ItemPreviewProvider = props => {
@@ -27,8 +27,8 @@ const ItemPreviewProvider = props => {
     <ItemPreviewContext.Provider
       value={{
         state: item,
-        updatePreview: updatePreview,
-        resetPreview: resetPreview
+        updatePreview,
+        resetPreview
       }}
     >
       {props.children}
