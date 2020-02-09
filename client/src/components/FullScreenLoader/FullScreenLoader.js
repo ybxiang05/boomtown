@@ -5,14 +5,16 @@ import styles from "./styles";
 
 function FullScreenLoader({ classes }) {
   return (
-    <Container className={classes.container}>
-      <Grid className={classes.fullLoader}>
-        <CircularProgress className={classes.spinner} />
-        <Typography className={classes.text} color="primary">
-          For it is in giving that we receive.
-        </Typography>
-      </Grid>
-    </Container>
+    <Fade>
+      <Container className={classes.container}>
+        <Grid className={classes.fullLoader}>
+          <CircularProgress className={classes.spinner} />
+          <Typography className={classes.text} color="primary">
+            For it is in receiving that we give.
+          </Typography>
+        </Grid>
+      </Container>
+    </Fade>
   );
 }
 

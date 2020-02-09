@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Fragment } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Items from "../pages/Items";
 import Profile from "../pages/Profile";
@@ -13,7 +13,6 @@ export default () => (
   <ViewerContext.Consumer>
     {({ viewer, loading }) => {
       if (loading) return <FullScreenLoader />;
-      console.log(viewer);
       if (!viewer) {
         return (
           <Switch>

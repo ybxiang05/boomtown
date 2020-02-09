@@ -1,30 +1,21 @@
-import React, { Component, useState } from "react";
-import { withStyles, CheckBox, TextField, Box } from "@material-ui/core/";
+import React from "react";
+import { withStyles, TextField, Box, Button, Typography } from "@material-ui/core/";
 import styles from "./styles";
-import Button from "@material-ui/core/Button";
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import BuildOutlinedIcon from "@material-ui/icons/BuildOutlined";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import DevicesIcon from "@material-ui/icons/Devices";
-// import SportsIcon from "@material-ui/icons/Sports";
+import FitnessCenterIcon from "@material-ui/icons/FitnessCenter";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import { Form, Field, FormSpy } from "react-final-form";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
 import { ADD_ITEM_MUTATION } from "../../apollo/queries";
-// import { Alert, AlertTitle } from "@material-ui/lab";
-
 import { ItemPreviewContext } from "../../context/ItemPreviewProvider";
+import propTypes from "prop-types";
 
 class ShareItemForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // isChecked: true
-    };
-  }
-
   validate = values => {
     const errors = {};
     if (!values.title) {
@@ -66,7 +57,7 @@ class ShareItemForm extends React.Component {
     let { classes, tags } = this.props;
     return (
       <ItemPreviewContext.Consumer>
-        {({ updatePreview, resetPreview, form }) => {
+        {({ updatePreview, resetPreview }) => {
           return (
             <Mutation mutation={ADD_ITEM_MUTATION}>
               {addItem => (
@@ -101,14 +92,20 @@ class ShareItemForm extends React.Component {
                             return "";
                           }}
                         />
-                        <h1>Share. Borrow. Prosper.</h1>
+                        <Typography variant="h3" className={classes.title}>
+                          Share. Borrow. Prosper.
+                        </Typography>
 
                         <Field
                           name="title"
                           type="text"
                           render={({ input, meta }) => (
                             <React.Fragment>
-                              <TextField {...input} placeholder="Name your item." />
+                              <TextField
+                                {...input}
+                                className={classes.inputField}
+                                placeholder="Name your item."
+                              />
                               {meta.error && meta.touched && <span>{meta.error}</span>}
                             </React.Fragment>
                           )}
@@ -121,7 +118,11 @@ class ShareItemForm extends React.Component {
                           rows="3"
                           render={({ input, meta }) => (
                             <React.Fragment>
-                              <TextField {...input} placeholder="Describe your item." />
+                              <TextField
+                                {...input}
+                                className={classes.inputField}
+                                placeholder="Describe your item."
+                              />
                               {meta.error && meta.touched && <span>{meta.error}</span>}
                             </React.Fragment>
                           )}
@@ -157,7 +158,7 @@ class ShareItemForm extends React.Component {
                               type="checkbox"
                               value="Sporting Goods"
                             />
-                            Sporting Goods <HomeOutlinedIcon className={classes.icons} />
+                            Sporting Goods <FitnessCenterIcon className={classes.icons} />
                           </label>
                           <label className={classes.tagIcons}>
                             <Field
@@ -209,4 +210,8 @@ class ShareItemForm extends React.Component {
     );
   }
 }
+ShareItemForm.propTypes = {
+  classes: propTypes.object.isRequired,
+  tags: propTypes.array
+};
 export default withRouter(withStyles(styles)(ShareItemForm));

@@ -1,7 +1,7 @@
 import React from "react";
 import ItemCard from "../ItemCard";
 import { ItemPreviewContext } from "../../context/ItemPreviewProvider";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 
 const ShareItemPreview = ({ classes }) => {

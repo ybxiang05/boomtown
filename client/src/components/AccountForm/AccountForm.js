@@ -1,17 +1,20 @@
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import FormControl from "@material-ui/core/FormControl";
-import Grid from "@material-ui/core/Grid";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+import {
+  Button,
+  FormControl,
+  Grid,
+  Input,
+  InputLabel,
+  Typography,
+  withStyles
+} from "@material-ui/core/";
 import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
 import { Form, Field } from "react-final-form";
 import { LOGIN_MUTATION, SIGNUP_MUTATION, VIEWER_QUERY } from "../../apollo/queries";
 import { Mutation } from "react-apollo";
 import { graphql, compose } from "react-apollo";
 import validate from "./helpers/validation";
 import styles from "./styles";
+import propTypes from "prop-types";
 
 class AccountForm extends Component {
   constructor(props) {
@@ -24,7 +27,7 @@ class AccountForm extends Component {
 
   render() {
     const { classes, loginMutation, signupMutation } = this.props;
-
+    console.log(typeof classes);
     return (
       <Mutation
         mutation={LOGIN_MUTATION}
@@ -149,6 +152,12 @@ class AccountForm extends Component {
     );
   }
 }
+
+AccountForm.propTypes = {
+  classes: propTypes.object,
+  loginMutation: propTypes.func,
+  signupMutation: propTypes.func
+};
 
 const refetchQueries = [{ query: VIEWER_QUERY }];
 export default compose(

@@ -1,5 +1,4 @@
-import ItemGrid from "../ItemGrid";
-import React, { Component } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
 import moment from "moment";
@@ -9,7 +8,6 @@ import { ViewerContext } from "../../context/ViewerProvider";
 
 import {
   Card,
-  makeStyles,
   CardActionArea,
   CardActions,
   CardContent,
@@ -19,15 +17,13 @@ import {
   Typography
 } from "@material-ui/core/";
 
-const ItemCard = ({ item, classes, location }) => {
-  console.log("yes?", location);
-  // const { tags } = item;
+const ItemCard = ({ item, classes }) => {
   return (
     <ViewerContext.Consumer>
       {({ viewer, loading }) => (
         <Card className={classes.card}>
           <CardActionArea>
-            <Link to={item && item.itemowner.id && `/profile/${item && item.itemowner.id}`}>
+            <Link to={item && item.itemowner.id ? `/profile/${item && item.itemowner.id}` : ""}>
               <CardMedia
                 component="img"
                 alt={item && item.title}
@@ -45,25 +41,36 @@ const ItemCard = ({ item, classes, location }) => {
                   <Typography variant="body1">
                     {(item && item.itemowner && item.itemowner.fullname) || viewer.fullname}
                   </Typography>
-                  <p variant="body1" color="textSecondary" component="p">
+                  <p
+                    variant="body1"
+                    color="textSecondary"
+                    component="p"
+                    className={classes.created}
+                  >
                     {moment(item && item.created).fromNow()}
                   </p>
                 </div>
               </Box>
 
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h2" component="h2" className={classes.title}>
                 {item && item.title}
               </Typography>
-
-              {item &&
-                item.tags &&
-                item.tags.map(tag => {
-                  return (
-                    <Typography variant="body1" color="textSecondary" key={tag.id}>
-                      {tag.title}{" "}
-                    </Typography>
-                  );
-                })}
+              <Box className={classes.tagsContainer}>
+                {item &&
+                  item.tags &&
+                  item.tags.map(tag => {
+                    return (
+                      <Typography
+                        variant="body1"
+                        color="textSecondary"
+                        key={tag.id}
+                        className={classes.tags}
+                      >
+                        {tag.title + " "}{" "}
+                      </Typography>
+                    );
+                  })}
+              </Box>
               <Typography variant="body1" component="p">
                 {item && item.description}
               </Typography>

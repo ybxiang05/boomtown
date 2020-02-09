@@ -32,7 +32,7 @@ const NavBar = ({ toggleLoggedIn, history, location, match, classes }) => {
           <AppBar position="fixed">
             <Toolbar className={classes.toolBar}>
               <Link to="/items">
-                <img src={boomtownLogo} className={classes.navLogo} />
+                <img src={boomtownLogo} alt="Boomtown Logo" className={classes.navLogo} />
               </Link>
 
               <div>

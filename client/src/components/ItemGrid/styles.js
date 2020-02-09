@@ -7,7 +7,6 @@ const styles = theme =>
     },
     singleCard: {
       width: "400px"
-      // flexBasis: "33%"
     }
   });
 

@@ -3,8 +3,7 @@ import { createStyles } from "@material-ui/core";
 const styles = theme =>
   createStyles({
     card: {
-      maxWidth: "400px",
-      height: "500px"
+      maxWidth: "400px"
     },
     gravatar: {
       borderRadius: "30px",
@@ -16,7 +15,22 @@ const styles = theme =>
     },
     userInfo: {
       display: "flex",
-      marginBottom: "2rem"
+      marginBottom: "1rem"
+    },
+    created: {
+      margin: 0
+    },
+    title: {
+      fontSize: "20px",
+      fontWeight: "5"
+    },
+    tagsContainer: {
+      display: "flex",
+      flexWrap: "wrap"
+    },
+    tags: {
+      fontSize: "12px",
+      paddingRight: "3px"
     }
   });
 

@@ -8,24 +8,20 @@ import FullScreenLoader from "../../components/FullScreenLoader";
 class ProfileContainer extends Component {
   render() {
     return (
-      console.log(this.props),
-      (
-        <ViewerContext.Consumer>
-          {({ viewer, data }) => (
-            <Query
-              query={ALL_USER_ITEMS_QUERY}
-              variables={{ id: this.props.match.params.id || viewer.id }}
-            >
-              {({ loading, error, data }) => {
-                if (loading) return <FullScreenLoader />;
-                if (error) return `error, ${error.message}`;
-                if (data) return <Profile data={data} />;
-              }}
-              {/* {console.log(data)} */}
-            </Query>
-          )}
-        </ViewerContext.Consumer>
-      )
+      <ViewerContext.Consumer>
+        {({ viewer }) => (
+          <Query
+            query={ALL_USER_ITEMS_QUERY}
+            variables={{ id: this.props.match.params.id || viewer.id }}
+          >
+            {({ loading, error, data }) => {
+              if (loading) return <FullScreenLoader />;
+              if (error) return `error, ${error.message}`;
+              if (data) return <Profile data={data} />;
+            }}
+          </Query>
+        )}
+      </ViewerContext.Consumer>
     );
   }
 }

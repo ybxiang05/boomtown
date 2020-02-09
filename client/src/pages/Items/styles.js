@@ -1,8 +1,9 @@
 import { createStyles } from "@material-ui/core";
-const styles = theme => ({
-  itemsContainer: {
-    backgroundColor: "black"
-  }
-});
+const styles = theme =>
+  createStyles({
+    itemsContainer: {
+      backgroundColor: "black"
+    }
+  });
 
 export default styles;
