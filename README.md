@@ -1,4 +1,4 @@
-# Boomtown Part One
+# Boomtown Part One and Two
 
 ## Instructions
 
@@ -9,6 +9,7 @@ To view and access this project, please follow the instructions below:
 - run: `npm run start:dev`
 - to test project functionality, please press Cmd key and click on the GraphQL playground link in terminal to open Playground
 - please use the Docs and Schema tabs to the right side of the screen once in Playground to help you navigate the project functions and structure
+- please note this app does not come with a database. Please refer to schema in Playground as well as the demo images below to create your own
 
 ## Reference Images
 
