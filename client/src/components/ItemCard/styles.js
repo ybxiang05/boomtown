@@ -3,7 +3,8 @@ import { createStyles } from "@material-ui/core";
 const styles = theme =>
   createStyles({
     card: {
-      maxWidth: "400px"
+      maxWidth: "400px",
+      minHeight: "450px"
     },
     gravatar: {
       borderRadius: "30px",
