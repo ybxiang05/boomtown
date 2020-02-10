@@ -1,6 +1,6 @@
-const { defaultFieldResolver } = require('graphql');
-const { ForbiddenError } = require('apollo-server-express');
-const { SchemaDirectiveVisitor } = require('graphql-tools');
+const { defaultFieldResolver } = require("graphql");
+const { ForbiddenError } = require("apollo-server-express");
+const { SchemaDirectiveVisitor } = require("graphql-tools");
 
 class AuthDirective extends SchemaDirectiveVisitor {
   visitObject(type) {
@@ -24,10 +24,7 @@ class AuthDirective extends SchemaDirectiveVisitor {
       const field = fields[fieldName];
       const { resolve = defaultFieldResolver } = field;
       field.resolve = async function(parent, args, context, info) {
-        /**
-         * @TODO: Authentication - Server
-         *
-         * Although this code may look complicated, you can think of this function as simply
+        /** for my own reference:
          * a function that will be run before every resolver and given the same arguments the resolver would.
          *
          * This is very convenient for authenticating queries because we can check for the

@@ -1,7 +1,4 @@
 /**
- *  @TODO: Handling Server Errors
- *
- *  Once you've completed your pg-resource.js methods and handled errors
  *  use the ApolloError constructor to capture and return errors from your resolvers.
  *
  *  Throwing ApolloErrors from your resolvers is a nice pattern to follow and
@@ -18,13 +15,10 @@ const queryResolvers = require("./queries");
 const mutationResolvers = require("./mutations");
 const relationResolvers = require("./relationResolvers");
 
-// const { DateScalar } = require("../custom-types");
-
 module.exports = app => {
   return {
-    // Date: DateScalar,
     Query: queryResolvers(app),
     Mutation: mutationResolvers(app),
-    ...relationResolvers,
+    ...relationResolvers
   };
 };

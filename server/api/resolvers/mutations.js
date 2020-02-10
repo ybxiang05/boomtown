@@ -71,10 +71,14 @@ const mutationResolvers = app => ({
     }
   },
 
-  logout(parent, args, context) {
-    //make robut by adding try catch
-    context.req.res.clearCookie(app.get("JWT_COOKIE_NAME"));
-    return true;
+  async logout(parent, args, context) {
+    //make robust by adding try catch
+    try {
+      context.req.res.clearCookie(app.get("JWT_COOKIE_NAME"));
+      return true;
+    } catch (error) {
+      throw error;
+    }
   },
   async addItem(parent, args, context, info) {
     try {

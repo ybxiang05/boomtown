@@ -41,8 +41,7 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
-      /**
-       *  @TODO: Handling Server Errors
+      /** for my own reference:
        *
        *  Inside of our resource methods we get to determine when and how errors are returned
        *  to our resolvers using try / catch / throw semantics.
@@ -58,17 +57,8 @@ module.exports = postgres => {
        *  3) If the user is found and there are no errors, return only the id, email, fullname, bio fields.
        *     -- this is important, don't return the password!
        *
-       *  You'll need to complete the query first before attempting this exercise.
        */
 
-      /**
-       *  Refactor the following code using the error handling logic described above.
-       *  When you're done here, ensure all of the resource methods in this file
-       *  include a try catch, and throw appropriate errors.
-       *
-       *  Ex: If the user is not found from the DB throw 'User is not found'
-       *  If the password is incorrect throw 'User or Password incorrect'
-       */
       try {
         const findUserQuery = {
           text: "SELECT * FROM users WHERE id = $1",

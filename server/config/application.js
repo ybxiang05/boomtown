@@ -7,9 +7,7 @@ const path = require("path");
 module.exports = app => {
   const PORT = process.env.PORT || 8080;
 
-  /**
-   *  @TODO: Configuration Variables
-   *
+  /** for my own reference:
    *  As much as possible, configuration information should be defined in a single location, this file.
    *
    *  Server applications often need information about their external environment,
@@ -35,10 +33,8 @@ module.exports = app => {
    *  Use the app.set and process.env to retrieve environment variables, and provide a fallback
    *  if any are not defined.
    *
-   *  Use Express' app.set() to store additional configuration information.
-   *
-   *  For example: app.set('PG_HOST', process.env.PG_HOST || 'localhost')
-   */
+   *   Express' app.set() stores additional configuration information.
+   *   */
   app.set("PORT", PORT);
   app.set("JWT_SECRET", process.env.PG_HOST || "NoTimeToDie");
   app.set("JWT_COOKIE_NAME", "bt-token");

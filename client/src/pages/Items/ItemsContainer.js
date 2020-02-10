@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Items from "./Items";
 import { Query } from "react-apollo";
-import {} from "../../apollo/queries";
 import { ALL_ITEMS_QUERY } from "../../apollo/queries";
 import { ViewerContext } from "../../context/ViewerProvider";
 import FullScreenLoader from "../../components/FullScreenLoader";

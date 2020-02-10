@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./styles";
 import ItemGrid from "../../components/ItemGrid";
-import { withStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const Items = ({ items, classes }) => {
@@ -13,7 +12,7 @@ const Items = ({ items, classes }) => {
   );
 };
 Items.propTypes = {
-  items: PropTypes.object,
+  items: PropTypes.array,
   classes: PropTypes.object
 };
 
