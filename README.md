@@ -12,7 +12,11 @@ To view and access this project, please follow the instructions below:
 
 ## Reference Images
 
-![Boomtown Playground Schema Demo](./snapshots/boomtown-playground-items-query.png)
+![Boomtown Playground Items Query Demo](./snapshots/boomtown-playground-items-query.png)
+items query demo
+
+![Boomtown Playground User Query Demo](./snapshots/boomtown-playground-user-query.png)
+user query demo
 
 ## Technologies Used
 
