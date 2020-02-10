@@ -8,6 +8,9 @@ const styles = theme =>
       width: "100%",
       justifyContent: "space-around",
       margin: "0 auto"
+    },
+    preview: {
+      width: "500px"
     }
   });
 

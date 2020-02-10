@@ -14,22 +14,9 @@ import { withRouter } from "react-router-dom";
 import { ADD_ITEM_MUTATION } from "../../apollo/queries";
 import { ItemPreviewContext } from "../../context/ItemPreviewProvider";
 import propTypes from "prop-types";
+import validate from "./helpers/validation";
 
 class ShareItemForm extends React.Component {
-  validate = values => {
-    const errors = {};
-    if (!values.title) {
-      errors.title = "required";
-    }
-    if (!values.description) {
-      errors.description = "required";
-    }
-    if (!values.tags) {
-      errors.tags = "required";
-    }
-    return errors;
-  };
-
   handleChange = event => {
     this.setChecked(event.target.checked);
   };
@@ -62,9 +49,8 @@ class ShareItemForm extends React.Component {
             <Mutation mutation={ADD_ITEM_MUTATION}>
               {addItem => (
                 <Form
-                  validate={this.validate}
+                  validate={validate.bind(this)}
                   onSubmit={async values => {
-                    console.log(values);
                     try {
                       await addItem({
                         variables: {

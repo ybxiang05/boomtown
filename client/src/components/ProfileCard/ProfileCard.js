@@ -3,6 +3,7 @@ import { Container, Card, CardContent, Typography, Box } from "@material-ui/core
 import Gravatar from "react-gravatar";
 import { withStyles } from "@material-ui/core/styles";
 import styles from "./styles";
+import PropTypes from "prop-types";
 
 const ProfileCard = ({ user, classes }) => {
   return (
@@ -35,6 +36,18 @@ const ProfileCard = ({ user, classes }) => {
       </Card>
     </Container>
   );
+};
+
+ProfileCard.propTypes = {
+  classes: PropTypes.object,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    fullname: PropTypes.string.isRequired,
+    bio: PropTypes.string,
+    email: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired,
+    borrowed: PropTypes.array
+  })
 };
 
 export default withStyles(styles)(ProfileCard);

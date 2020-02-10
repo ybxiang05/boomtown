@@ -2,6 +2,7 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { CircularProgress, Typography, Grid, Fade, Container } from "@material-ui/core/";
 import styles from "./styles";
+import propTypes from "prop-types";
 
 function FullScreenLoader({ classes }) {
   return (
@@ -18,4 +19,7 @@ function FullScreenLoader({ classes }) {
   );
 }
 
+FullScreenLoader.propTypes = {
+  classes: propTypes.object
+};
 export default withStyles(styles)(FullScreenLoader);

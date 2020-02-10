@@ -4,7 +4,7 @@ import { Grid, Typography } from "@material-ui/core";
 import styles from "./styles";
 import ItemCard from "../../components/ItemCard";
 import ProfileCard from "../../components/ProfileCard";
-
+import PropTypes from "prop-types";
 const Profile = ({ data, classes }) => {
   const { user } = data;
   return (
@@ -26,6 +26,10 @@ const Profile = ({ data, classes }) => {
       </Grid>
     </Grid>
   );
+};
+Profile.propTypes = {
+  user: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(Profile);

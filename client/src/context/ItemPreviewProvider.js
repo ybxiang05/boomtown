@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export const ItemPreviewContext = React.createContext();
 
@@ -34,6 +35,10 @@ const ItemPreviewProvider = props => {
       {props.children}
     </ItemPreviewContext.Provider>
   );
+};
+
+ItemPreviewProvider.propTypes = {
+  props: PropTypes.object
 };
 
 export default ItemPreviewProvider;

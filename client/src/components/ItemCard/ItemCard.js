@@ -5,6 +5,7 @@ import moment from "moment";
 import { Link, withRouter } from "react-router-dom";
 import Gravatar from "react-gravatar";
 import { ViewerContext } from "../../context/ViewerProvider";
+import PropTypes from "prop-types";
 
 import {
   Card,
@@ -85,6 +86,25 @@ const ItemCard = ({ item, classes }) => {
       )}
     </ViewerContext.Consumer>
   );
+};
+
+ItemCard.propTypes = {
+  classes: PropTypes.object,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    created: PropTypes.any,
+    tags: PropTypes.array.isRequired,
+    itemowner: PropTypes.shape({
+      fullname: PropTypes.string,
+      email: PropTypes.string
+    })
+  }),
+  viewer: PropTypes.shape({
+    fullname: PropTypes.string,
+    email: PropTypes.string
+  })
 };
 
 export default withRouter(withStyles(styles)(ItemCard));

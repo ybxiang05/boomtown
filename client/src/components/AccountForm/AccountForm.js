@@ -29,15 +29,9 @@ class AccountForm extends Component {
     const { classes, loginMutation, signupMutation } = this.props;
     console.log(typeof classes);
     return (
-      <Mutation
-        mutation={LOGIN_MUTATION}
-        // refetchQueries={[{ query: VIEWER_QUERY }]}
-      >
+      <Mutation mutation={LOGIN_MUTATION}>
         {login => (
-          <Mutation
-            mutation={SIGNUP_MUTATION}
-            // refetchQueries={[{ query: VIEWER_QUERY }]}
-          >
+          <Mutation mutation={SIGNUP_MUTATION}>
             {signup => (
               <Form
                 onSubmit={values => {
@@ -47,7 +41,7 @@ class AccountForm extends Component {
                     : signupMutation(user).catch(error => this.setState({ error }));
                 }}
                 validate={validate.bind(this)}
-                render={({ handleSubmit, pristine, invalid, submitting, form }) => (
+                render={({ handleSubmit, pristine, invalid, form }) => (
                   <form onSubmit={handleSubmit} className={classes.accountForm}>
                     {!this.state.formToggle && (
                       <FormControl fullWidth className={classes.formControl}>

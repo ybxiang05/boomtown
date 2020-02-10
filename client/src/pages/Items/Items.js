@@ -3,6 +3,7 @@ import styles from "./styles";
 import ItemGrid from "../../components/ItemGrid";
 import { withStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const Items = ({ items, classes }) => {
   return (
@@ -10,6 +11,10 @@ const Items = ({ items, classes }) => {
       <ItemGrid items={items} />
     </Box>
   );
+};
+Items.propTypes = {
+  items: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(Items);
