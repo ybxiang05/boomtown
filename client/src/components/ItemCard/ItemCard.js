@@ -18,7 +18,7 @@ import {
   Typography
 } from "@material-ui/core/";
 
-const ItemCard = ({ item, classes }) => {
+const ItemCard = ({ item, classes, location }) => {
   return (
     <ViewerContext.Consumer>
       {({ viewer, loading }) => (
@@ -77,11 +77,15 @@ const ItemCard = ({ item, classes }) => {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            <Box className={classes.borrowButton}>
-              <Button>Borrow</Button>
-            </Box>
-          </CardActions>
+          {location.pathname !== "/share" ? (
+            <CardActions>
+              <Box className={classes.borrowButton}>
+                <Button>Borrow</Button>
+              </Box>
+            </CardActions>
+          ) : (
+            ""
+          )}
         </Card>
       )}
     </ViewerContext.Consumer>
