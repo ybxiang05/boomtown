@@ -2,29 +2,24 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
 import styles from "./styles";
-import ItemCard from "../../components/ItemCard";
+import ItemGrid from "../../components/ItemGrid";
 import ProfileCard from "../../components/ProfileCard";
 import PropTypes from "prop-types";
 const Profile = ({ data, classes }) => {
   const { user } = data;
+  const { items } = user;
+  console.log(user);
   return (
     <Grid className={classes.container}>
-      <ProfileCard user={user} classes={classes} />
+      <ProfileCard user={user} />
       <Typography variant="h1" color="primary" className={classes.sharedTitle}>
         Shared Items
       </Typography>
       <Grid className={classes.cardGrid} item xs={12}>
-        <Grid container justify="center" spacing={2}>
-          {user.items.map(item => {
-            return (
-              <Grid item key={item.id} className={classes.singleCard}>
-                <ItemCard item={item} className={classes.itemCard} />
-              </Grid>
-            );
-          })}
-        </Grid>
+        <ItemGrid items={items} />
       </Grid>
     </Grid>
+    //use items grid instead of items card
   );
 };
 Profile.propTypes = {
