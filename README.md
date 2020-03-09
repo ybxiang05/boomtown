@@ -42,29 +42,29 @@ user query demo
 
 ## Technologies Used
 
-### Express
+- Express
 
-### Apollo Server
+- Apollo Server
 
-### Postgres
+- Postgres
 
-### GraphQL
+- GraphQL
 
-### Node.JS
+- Node.JS
 
-### Material UI
+- Material UI
 
-### Apollo Server Express
+- Apollo Server Express
 
-### BCrypt
+- BCrypt
 
-### Chalk
+- Chalk
 
-### Cookie Parser
+- Cookie Parser
 
-### CORS
+- CORS
 
-### JSON Web Token
+- JSON Web Token
 
 ## Personal Learnings
 
