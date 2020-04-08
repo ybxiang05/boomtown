@@ -501,7 +501,6 @@
   version "4.17.3"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.3.tgz#38e4458ce2067873b09a73908df488870c303bd9"
   integrity sha512-I8cGRJj3pyOLs/HndoP+25vOqhqWkAZsWMEmq1qXy/b/M3ppufecUwaK2/TVDVxcV61/iSdhykUjQQ2DLSrTdg==
-
   dependencies:
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
@@ -749,7 +748,6 @@ apollo-cache-control@^0.9.1:
     apollo-server-env "^2.4.3"
     graphql-extensions "^0.11.1"
 
-
 apollo-datasource@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/apollo-datasource/-/apollo-datasource-0.5.0.tgz#7a8c97e23da7b9c15cb65103d63178ab19eca5e9"
@@ -796,7 +794,6 @@ apollo-engine-reporting@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/apollo-engine-reporting/-/apollo-engine-reporting-1.7.1.tgz#469d9711507ef4c3b03f193a9b422ecf7ecff7e9"
   integrity sha512-9ykddPxlC95R9CkkJaPaGriRbOGfzeKqqPXRAunyX1h4sG/8g+MJ/gGzmnNf63k6RvRUdRENCE83wPk2OeU+2A==
-
   dependencies:
     apollo-engine-reporting-protobuf "^0.4.4"
     apollo-graphql "^0.4.0"
@@ -806,7 +803,6 @@ apollo-engine-reporting@^1.7.1:
     apollo-server-types "^0.3.1"
     async-retry "^1.2.1"
     graphql-extensions "^0.11.1"
-
 
 apollo-env@0.5.1:
   version "0.5.1"
@@ -897,7 +893,6 @@ apollo-server-core@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-2.12.0.tgz#980f29788c17f029e7248d331bee1ad2e1f07e5b"
   integrity sha512-BRVdOyZrRJ1ALlmis0vaOLIHHYu5K3UVKAQKIgHkRh/YY0Av4lpeEXr49ELK04LTeh0DG0pQ5YYYhaX1wFcDEw==
-
   dependencies:
     "@apollographql/apollo-tools" "^0.4.3"
     "@apollographql/graphql-playground-html" "1.6.24"
@@ -918,7 +913,6 @@ apollo-server-core@^2.12.0:
     graphql-tools "^4.0.0"
     graphql-upload "^8.0.2"
     loglevel "^1.6.7"
-
     sha.js "^2.4.11"
     subscriptions-transport-ws "^0.9.11"
     ws "^6.0.0"
@@ -953,7 +947,6 @@ apollo-server-express@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/apollo-server-express/-/apollo-server-express-2.12.0.tgz#a03cef8a3aa753bff73156e6a31fd59a076dc48b"
   integrity sha512-oTBKM2SsziCoFW+ta+ubJ/ypvsc+EWrbJnyZhJ5FBYzSXPstt/jvgZHgMO+kOQgHEHrbJwugNDUuLMSm608L7A==
-
   dependencies:
     "@apollographql/graphql-playground-html" "1.6.24"
     "@types/accepts" "^1.3.5"
@@ -963,7 +956,6 @@ apollo-server-express@^2.12.0:
     accepts "^1.3.5"
     apollo-server-core "^2.12.0"
     apollo-server-types "^0.3.1"
-
     body-parser "^1.18.3"
     cors "^2.8.4"
     express "^4.17.1"
@@ -1007,7 +999,6 @@ apollo-server-types@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/apollo-server-types/-/apollo-server-types-0.3.1.tgz#9456e243dad525a78b689246f124a66d7d8ac409"
   integrity sha512-6nX5VC3icOGf1RZIs7/SYQZff+Cl16LQu1FHUOIk9gAMN2XjlRCyJgCeMj5YHJzQ8Mhg4BO0weWuydEg+JxLzg==
-
   dependencies:
     apollo-engine-reporting-protobuf "^0.4.4"
     apollo-server-caching "^0.5.1"
@@ -1020,7 +1011,6 @@ apollo-server@^2.9.16:
   dependencies:
     apollo-server-core "^2.12.0"
     apollo-server-express "^2.12.0"
-
     express "^4.0.0"
     graphql-subscriptions "^1.0.0"
     graphql-tools "^4.0.0"
@@ -1040,7 +1030,6 @@ apollo-tracing@^0.9.1:
   dependencies:
     apollo-server-env "^2.4.3"
     graphql-extensions "^0.11.1"
-
 
 apollo-utilities@^1.0.1, apollo-utilities@^1.2.1:
   version "1.3.2"
@@ -2267,7 +2256,6 @@ graphql-extensions@^0.11.1:
     apollo-server-env "^2.4.3"
     apollo-server-types "^0.3.1"
 
-
 graphql-playground-html@1.6.12:
   version "1.6.12"
   resolved "https://registry.yarnpkg.com/graphql-playground-html/-/graphql-playground-html-1.6.12.tgz#8b3b34ab6013e2c877f0ceaae478fafc8ca91b85"
@@ -3390,9 +3378,9 @@ lodash.sortby@^4.7.0:
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
 lodash@^4.17.11:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 loglevel@^1.6.7:
   version "1.6.7"
